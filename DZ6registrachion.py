@@ -5,17 +5,15 @@ def decorator_regisr(func):
     и заглавные буквы """
     def wrapper(user, password):
         if len(password) < 8:
-            print("Incorrect password lengh")
-        else: 
-            print ('The password lenght is correct')
+            raise Exception("Incorrect password length")
         simv = ". ? , ! * - + /"
         for simbol in simv:
             if simbol in password:
-                print("The special symbol in the password")
-            else: pass
+                raise Exception("The special symbol in the password")
+            
         for letter in password:
             if letter.isupper():
-                print("Dont use upper letters")
+                raise Exception ("Dont use upper letters")
         func(user, password) 
     return wrapper
 
