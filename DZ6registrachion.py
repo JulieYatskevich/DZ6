@@ -1,5 +1,8 @@
 
 def decorator_regisr(func):
+    """Декоратор проверяет длинну пароля, 
+    содержатся ли в нем специальные символы 
+    и заглавные буквы """
     def wrapper(user, password):
         if len(password) < 8:
             print("Incorrect password lengh")
@@ -18,8 +21,10 @@ def decorator_regisr(func):
 
 
 new_file = open('users.txt', "w")
+
 @decorator_regisr
 def registration (user, password):
+    """Функция регистрации пользователя и пароля"""
     new_file.write(f'{user}:{password}''\n')
     return 
 
@@ -35,6 +40,8 @@ new_file = open ("users.txt", "r")
 read_users= new_file.read()
 
 def autorization():
+    """Функция авторизации.
+    Проверяет есть ли логин и пароль в документе users.txt"""
     login = input("Enter your login:")
     passw = input("Enter your password:")
     x = f'{login}:{passw}'
