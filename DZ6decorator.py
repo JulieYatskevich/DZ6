@@ -1,4 +1,4 @@
-def decorator1(func):
+def privetsntvie(func):
     """Декоратор выдает приветствие и указывает в какую группу определен человек"""
     def wrapper():
         name = str(input("Enter you Name:"))
@@ -12,7 +12,7 @@ def decorator1(func):
 def sort_lastname():
     """Функция сортирующая фамилии на группы согласно алфавитного порядка"""
     lastname = str(input("Enter you Lastname:"))
-    if (lastname <="K" ):
+    if (lastname <= "K"):
         print("Your group is number 1")
     elif (lastname > "K" and lastname <= "S"):
         print("Your group is number 2")
