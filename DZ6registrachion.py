@@ -18,7 +18,7 @@ def decorator_regisr(func):
     return wrapper
 
 
-new_file = open('users.txt', "w")
+new_file = open('users.txt', "a")
 
 @decorator_regisr
 def registration (user, password):
