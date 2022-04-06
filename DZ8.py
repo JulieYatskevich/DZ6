@@ -2,38 +2,52 @@ class TV_show:
     """Класс сериалы. Содержит информацию о сериале: название, рейтинг, год выпуска"""
     # Переменная содержит количество сериалов в классе
     quantity = 0
-    def __init__(self, name, rating, year, **kwargs) -> None:
+    
+    def __init__(self, name, rating:float, year, **kwargs) -> None:
+        super().__init__(**kwargs)
         self.name = name
         self.rating = rating
         self.year = year 
-        super().__init__(**kwargs)
         TV_show.quantity += 1
         
     def about_shows(self):
         print (f'Название {self.name}, рейтинг {self.rating}. Год выпуска {self.year}')
 
-BrakingBad = TV_show("BB", "7.8","2000")
-BrakingBad.about_shows()
-print ("количество сериалов", TV_show.quantity)   
-        
-class Animations(TV_show):
+    @staticmethod
+    def sum_TVshow():
+        """Выводит количество сериалов в базе"""
+        print(f'Количество сериалов в базе , {TV_show.quantity}')
+    
+
+class Animation(TV_show):
     """Класс мультипликационных сериалов. Имеет информацию о стране производства"""
-    def __init__(self, name, rating, year, country, **kwargs) -> None:
+    min_rating = 8
+
+    @classmethod
+    def popular(cls, rat):
+        return cls.min_rating <= rat
+
+    def __init__(self, name, rating:float, year, country, **kwargs) -> None:
         super().__init__(name, rating, year, **kwargs)
         self.country = country
+        if self.popular(rating):
+            print ("Популярный")
+        else: 
+            print ("Непопулярный")
 
     def about_shows(self):
         print("Это мультипликационный сериал. ", end="")
         super().about_shows()
         print (f'Страна производства {self.country}')
 
-RickMorti = Animations("rick", "9", "2020", "USA")
-RickMorti.about_shows()
-print ("количество сериалов", TV_show.quantity)  
+
+
+
+
 
 class Comedy(TV_show):
     """Класс комедийных сериалов. Имеет информацию о количестве сезонов"""
-    def __init__(self, name, rating, year, numb_seasons, **kwargs) -> None:
+    def __init__(self, name, rating:float, year, numb_seasons, **kwargs) -> None:
         super().__init__(name, rating, year, **kwargs)
         self.seasons = numb_seasons
 
@@ -42,11 +56,9 @@ class Comedy(TV_show):
         super().about_shows()
         print (f'Количество сезонов {self.seasons}') 
 
-Friends = Comedy("Friends", "9", "1995", "3")
-Friends.about_shows()
-print ("количество сериалов", TV_show.quantity)  
 
-class Animation_Comedy(Comedy, Animations):
+
+class Animation_Comedy(Comedy, Animation):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs) 
         
@@ -57,6 +69,24 @@ class Animation_Comedy(Comedy, Animations):
         print (f'Страна производства {self.country} ', end="")
         print (f'Количество сезонов {self.seasons}') 
 
-Simsons = Animation_Comedy(name="Simsons", rating="8.8", year="2021", numb_seasons="14", country="USA")
-Simsons.about_shows()
-print ("количество сериалов", TV_show.quantity)
+    
+
+
+breakingBad = TV_show("BreakingBad", 7.8,"2000")
+breakingBad.about_shows()
+
+
+rickMorti = Animation("rick", 9, "2020", "USA")
+rickMorti.about_shows()
+
+simsons = Animation_Comedy(name="Simsons", rating=7, year="2021", numb_seasons="14", country="USA")
+simsons.about_shows()
+
+friends = Comedy("Friends", 9, "1995", "3")
+friends.about_shows()
+
+print(TV_show.sum_TVshow())
+
+
+
+
